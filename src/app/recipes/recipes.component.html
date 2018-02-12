@@ -1,0 +1,19 @@
+<h2>My recipes</h2>
+<ul class="recipes">
+  <li *ngFor="let recipe of recipes">
+    <a routerLink="/detail/{{recipe.id}}">
+      <span class="badge">ID: {{recipe.id}}</span> {{recipe.name}}
+    </a>
+  </li>
+</ul>
+<!-- <app-recipe-detail [recipe]="selectedRecipe"></app-recipe-detail> -->
+
+
+
+<!-- id: number;
+name: string;
+mealCategory: string;
+allergen: string;
+time: number;
+description
+imgUrl -->
