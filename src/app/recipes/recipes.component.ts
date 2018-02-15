@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Recipe } from '../recipe';
-import { RECIPES } from '../mock-recipes';
 import { RecipeService } from '../recipe.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-recipes',
@@ -11,15 +12,45 @@ import { RecipeService } from '../recipe.service';
 export class RecipesComponent implements OnInit {
   recipes: Recipe[];
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getRecipes();
+    // this.recipeService.getRecipes();
   }
 
   getRecipes(): void {
-    this.recipeService.getRecipes()
-      .subscribe(recipes => this.recipes = recipes);
+    this.recipeService.recipe$.subscribe((res: Recipe[]) => {
+      return this.recipes = res;
+    });
   }
 
 }
+/*
+ selectedRecipe: Recipe;
+  recipes: Recipe[];
+  query: string;
+
+  constructor(private service: RecipeService, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.getRecipes();
+    this.query = 'tofu';
+    this.service.getRecipes(this.query);
+
+  }
+
+  getRecipes(): void {
+    this.service.recipe$.subscribe((res: Recipe[]) => {
+        return this.recipes = res;
+
+    });
+
+
+  }
+
+  onRecipeSelected(recipe: Recipe) {
+    this.selectedRecipe = recipe;
+  }
+}
+*/

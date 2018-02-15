@@ -9,6 +9,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ClarityModule } from '@clr/angular';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ClarityModule.forRoot(),
+    HttpClientModule
   ],
   providers: [
     RecipeService,
