@@ -11,12 +11,12 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class RecipesComponent implements OnInit {
   recipes: Recipe[];
-
+  filteredRecipes: Recipe[] = [];
+  displayFilteredRecipes = false;
   constructor(private recipeService: RecipeService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getRecipes();
-    // this.recipeService.getRecipes();
   }
 
   getRecipes(): void {
@@ -24,33 +24,23 @@ export class RecipesComponent implements OnInit {
       return this.recipes = res;
     });
   }
-
-}
-/*
- selectedRecipe: Recipe;
-  recipes: Recipe[];
-  query: string;
-
-  constructor(private service: RecipeService, private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.getRecipes();
-    this.query = 'tofu';
-    this.service.getRecipes(this.query);
-
-  }
-
-  getRecipes(): void {
-    this.service.recipe$.subscribe((res: Recipe[]) => {
-        return this.recipes = res;
-
-    });
-
-
-  }
-
-  onRecipeSelected(recipe: Recipe) {
-    this.selectedRecipe = recipe;
+  filter(type: string) {
+    if (type === 'All') {
+      this.displayFilteredRecipes = false;
+      this.filteredRecipes = [];
+      this.filteredRecipes = this.recipes;
+    } else {
+      this.filteredRecipes = [];
+      this.recipes.forEach(recipe => {
+        if (recipe.course !== undefined) {
+          recipe.course.forEach(courseType => {
+            if (courseType === type) {
+              this.filteredRecipes.push(recipe);
+              this.displayFilteredRecipes = true;
+            }
+          });
+        }
+      });
+    }
   }
 }
-*/

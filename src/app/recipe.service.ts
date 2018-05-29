@@ -16,45 +16,15 @@ export class RecipeService {
 
   private recipes = new BehaviorSubject<Recipe[]>([]);
   recipe$ = this.recipes.asObservable();
+  filterRecipe$ = this.recipes.asObservable();
   recipesUrl;
 
-  constructor(
-    // private messageService: MessageService,
-    // private http: HttpClient
-  ) { }
-
-  // private log(message: string) {
-  //   this.messageService.add('RecipeService: ' + message);
-  // }
-
-  // getRecipes(): Observable<Recipe[]> {
-  //   // this.messageService.add('RecipeService: fetched recipes');
-  //   return this.http.get<Recipe[]>(this.recipesUrl)
-  //   .pipe(
-  //     tap(recipe => this.log(`fetched recipes`)),
-  //     catchError(this.handleError('getRecipes', []))
-  //   );
-  //   // return of(RECIPES);
-  // }
-  // getRecipe(id: string): Observable<Recipe> {
-  //   const url = 'http://api.yummly.com/v1/api/recipe/' + id + '_app_id=' + environment.apiId + '&_app_key=' + environment.apiKey;
-  //   this.messageService.add(`RecipeService: fetched recipe id=${id}`);
-  //   return of(RECIPES.find(recipe => recipe.id === id));
-  // }
-
-  // private handleError<T> (operation = 'operation', result?: T) {
-  //   return (error: any): Observable<T> => {
-  //     console.error(error);
-  //     this.log(`${operation} failed: ${error.message}`);
-
-  //     return of(result as T);
-  //   };
-  // }
+  constructor() { }
 
   getRecipes() {
     const RECIPES = [];
     const recipe = null;
-    this.recipesUrl = 'http://api.yummly.com/v1/api/recipes?_app_id=' + environment.apiId + '&_app_key=' + environment.apiKey + '&q=pasta';
+    this.recipesUrl = 'http://api.yummly.com/v1/api/recipes?_app_id=' + environment.apiId + '&_app_key=' + environment.apiKey + '&q=random';
 
     const promise = new Promise((resolve, reject) => {
       fetch(this.recipesUrl)
@@ -64,10 +34,11 @@ export class RecipeService {
             RECIPES.push(new Recipe(
             encodeURIComponent(item.id),
             item.url,
-            item.matchesName,
-            item.smallImageUrls,
+            item.recipeName,
+            item.smallImageUrls[0].replace('=s90', '=s560'),
             item.ingredients,
             item.totalTimeInSeconds,
+            item.attributes.course,
             item.rating
         ));
         });
@@ -78,6 +49,7 @@ export class RecipeService {
     return promise;
   }
 
+
   getRecipe(id: string) {
 
     let recipe: Recipe;
@@ -86,7 +58,7 @@ export class RecipeService {
     const promise = new Promise((resolve, reject) => {
       fetch(this.recipesUrl)
       .then(res => res.json())
-      .then( res => {
+      .then( res => { console.log(res);
         recipe = new Recipe(
             res.id,
             res.attribution.url,
@@ -94,6 +66,7 @@ export class RecipeService {
             res.images[0].hostedLargeUrl,
             res.ingredientLines,
             res.totalTimeInSeconds,
+            res.attributes.course,
             res.rating
           );
             resolve(recipe);

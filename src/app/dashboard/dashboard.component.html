@@ -7,3 +7,19 @@
     </div>
   </a>
 </div>
+<div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <a *ngFor="let recipe of recipes" class="card clickable"
+        routerLink="/detail/{{recipe.id}}">
+            <div class="card-img">
+              <img src={{recipe.smallImageUrls}}>
+            </div>
+            <div class="card-block">
+                <h4>{{recipe.recipeName}}</h4>
+                <p class="card-text">
+                    Rating: {{recipe.rating}}/5
+                </p>
+            </div>
+        </a>
+    </div>
+</div>

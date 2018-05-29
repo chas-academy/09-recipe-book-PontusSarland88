@@ -5,6 +5,7 @@ export class Recipe {
   smallImageUrls: string;
   ingredients: Array<string>;
   totalTimeInSeconds: number;
+  course: Array<string>;
   rating: number;
 
   constructor(
@@ -14,6 +15,7 @@ export class Recipe {
     smallImageUrls: string,
     ingredients: Array<string>,
     totalTimeInSeconds: number,
+    course: Array<string>,
     rating: number
   ) {
     this.id = id;
@@ -22,6 +24,7 @@ export class Recipe {
     this.smallImageUrls = smallImageUrls;
     this.ingredients = ingredients;
     this.totalTimeInSeconds = totalTimeInSeconds;
+    this.course = course;
     this.rating = rating;
   }
 }

@@ -1,7 +1,38 @@
-<h1>{{title}}</h1>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/recipes">Recipes</a>
-</nav>
+<header class="header-1">
+    <div class="branding">
+      <a class="nav-link">
+        <clr-icon shape="happy-face"></clr-icon>
+        <span class="title">{{title}}</span>
+      </a>
+    </div>
+        <form class="search">
+      <label for="search_input">
+        <input id="search_input" type="text" placeholder="Search for recipe...">
+      </label>
+    </form>
+    <div class="header-actions">
+      <clr-dropdown class="dropdown bottom-right">
+        <button class="nav-icon" clrDropdownToggle>
+          <clr-icon shape="user"></clr-icon>
+          <clr-icon shape="caret down"></clr-icon>
+        </button>
+        <div class="dropdown-menu">
+          <a clrDropdownItem>Log in</a>
+          <a clrDropdownItem>Maybe put something here</a>
+        </div>
+      </clr-dropdown>
+    </div>
+  </header>
+  <nav class="subnav">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/recipes">Recipes</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+
 <router-outlet></router-outlet>
 <app-messages></app-messages>

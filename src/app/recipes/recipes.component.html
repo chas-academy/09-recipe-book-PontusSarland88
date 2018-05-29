@@ -1,19 +1,50 @@
-<h2>My recipes</h2>
-<ul class="recipes">
-  <li *ngFor="let recipe of recipes">
-    <a routerLink="/detail/{{recipe.id}}">
-      <span class="badge">ID: {{recipe.id}}</span> {{recipe.recipeName}}
-    </a>
-  </li>
-</ul>
-<!-- <app-recipe-detail [recipe]="selectedRecipe"></app-recipe-detail> -->
+
+<div class="container-fluid m-1">
+    <span id="error"></span>
+    <button class="mat-button-toggle" (click)="filter('All')">Show all</button>
+    <button class="mat-button-toggle" (click)="filter('Appetizers')">Appetizers</button>
+    <button class="mat-button-toggle" (click)="filter('Main Dishes')">Main course</button>
+    <button class="mat-button-toggle" (click)="filter('Desserts')">Dessert</button>
+    <button class="mat-button-toggle" (click)="filter('Vegetarian')">Vegetarian</button>
+
+  <div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+      <div ng-if="displayFilteredRecipes === true">
+          <a *ngFor="let recipe of filteredRecipes"
+          class="card clickable"
+          routerLink="/detail/{{recipe.id}}">
+          <div class="card-header">
+              {{recipe.recipeName}}
+          </div>
+          <div class="card-img">
+            <img src={{recipe.smallImageUrls}}>
+          </div>
+          <div class="card-block">
+              <p class="card-text">
+                Rating: {{recipe.rating}}/5
+              </p>
+          </div>
+        </a>
+      </div>
+      <div ng-else="displayFilteredRecipes === false">
+        <a *ngFor="let recipe of recipes"
+          class="card clickable"
+          routerLink="/detail/{{recipe.id}}">
+          <div class="card-header">
+              {{recipe.recipeName}}
+          </div>
+          <div class="card-img">
+            <img src={{recipe.smallImageUrls}}>
+          </div>
+          <div class="card-block">
+              <p class="card-text">
+                Rating: {{recipe.rating}}/5
+              </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-
-<!-- id: number;
-name: string;
-mealCategory: string;
-allergen: string;
-time: number;
-description
-imgUrl -->
